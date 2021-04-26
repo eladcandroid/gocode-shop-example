@@ -1,26 +1,37 @@
 // import logo from './logo.svg';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import Todos from "./components/Todos";
+import Counter from "./components/Counter";
 
 function App() {
-  const [todos, setTodos] = useState([
-    {
-      userId: 1,
-      id: 1,
-      title: "Do H.W",
-      completed: false,
-    },
-    {
-      userId: 1,
-      id: 2,
-      title: "Fix computer",
-      completed: true,
-    },
-  ]);
+  const [todos, setTodos] = useState([]);
+
+  const [globalCounter, setGlobalCounter] = useState(10);
+
+  useEffect(() => {
+    console.log("FIRST RENDER & RE-RENDER");
+  });
+
+  function fetchTodos() {
+    fetch("https://jsonplaceholder.typicode.com/todos")
+      .then((response) => response.json())
+      .then((data) => setTodos(data));
+  }
+
+  useEffect(() => {
+    fetchTodos();
+  }, []);
+
+  useEffect(() => {
+    console.log("USE-EFFECT: TODOS CHANGED!");
+  }, [todos]);
+
+  useEffect(() => {
+    console.log("USE-EFFECT: GLOBAL COUNTER CHANGED!");
+  }, [globalCounter]);
 
   function toggleCompleted(id) {
-    console.log("id", id);
     setTodos(
       todos.map((todo) => {
         if (todo.id === id) {
@@ -46,8 +57,13 @@ function App() {
     }
   }
 
+  function onIncrement(val) {
+    setGlobalCounter(globalCounter + val);
+  }
+
   return (
     <div>
+      <button onClick={fetchTodos}>Fetch todos</button>
       <input
         value={newTodo}
         onChange={(e) => {
@@ -55,9 +71,10 @@ function App() {
         }}
         placeholder="Insert your new todo"
       />
-
       <button onClick={() => addTodo(newTodo)}>Add Todo</button>
       <Todos todos={todos} toggleCompleted={toggleCompleted} />
+      Global Counter: {globalCounter}
+      <Counter initialCount={10} onIncrement={onIncrement} />
     </div>
   );
 }

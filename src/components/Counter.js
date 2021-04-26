@@ -14,7 +14,7 @@ function Counter({ color, initialCount, onIncrement }) {
   function incrementBy2() {
     setCount((prevCount) => prevCount + 1);
     setCount((prevCount) => prevCount + 1);
-    onIncrement(2);
+    // onIncrement(2);
   }
 
   return (
