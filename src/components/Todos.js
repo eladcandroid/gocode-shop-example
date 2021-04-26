@@ -1,6 +1,8 @@
+import { useTodos } from "../contexts/TodosContext";
 import Todo from "./Todo";
 
-function Todos({ todos, toggleCompleted }) {
+function Todos({ toggleCompleted }) {
+  const { todos } = useTodos();
   return (
     <ul>
       {todos.map(({ id, title, completed }) => (

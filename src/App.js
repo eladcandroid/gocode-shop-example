@@ -2,22 +2,10 @@
 import { useState } from "react";
 import "./App.css";
 import Todos from "./components/Todos";
+import { useTodos } from "./contexts/TodosContext";
 
 function App() {
-  const [todos, setTodos] = useState([
-    {
-      userId: 1,
-      id: 1,
-      title: "Do H.W",
-      completed: false,
-    },
-    {
-      userId: 1,
-      id: 2,
-      title: "Fix computer",
-      completed: true,
-    },
-  ]);
+  const { todos, setTodos } = useTodos();
 
   function toggleCompleted(id) {
     console.log("id", id);
@@ -55,9 +43,8 @@ function App() {
         }}
         placeholder="Insert your new todo"
       />
-
       <button onClick={() => addTodo(newTodo)}>Add Todo</button>
-      <Todos todos={todos} toggleCompleted={toggleCompleted} />
+      <Todos toggleCompleted={toggleCompleted} />
     </div>
   );
 }
