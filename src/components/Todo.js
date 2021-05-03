@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { Link } from "react-router-dom";
 import ThemeContext from "../contexts/ThemeContext";
 
 function Todo({ id, title, completed, toggleCompleted }) {
@@ -13,7 +14,7 @@ function Todo({ id, title, completed, toggleCompleted }) {
         checked={completed}
         onChange={() => toggleCompleted(id)}
       />
-      {title}
+      <Link to={`/todos/${id}`}>{title}</Link>
     </li>
   );
 }
