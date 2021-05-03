@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import "./App.css";
 import Todos from "./components/Todos";
 import ThemeContext from "./contexts/ThemeContext";
+import Button from "@material-ui/core/Button";
 
 function App() {
   const [todos, setTodos] = useState([]);
@@ -59,7 +60,9 @@ function App() {
           color: !darkMode ? "black" : "white",
         }}
       >
-        <button onClick={fetchTodos}>Fetch todos</button>
+        <Button variant="outlined" color="primary" onClick={fetchTodos}>
+          Fetch todos
+        </Button>
         <input
           value={newTodo}
           onChange={(e) => {
