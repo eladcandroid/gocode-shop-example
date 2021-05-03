@@ -1,17 +1,15 @@
 // import logo from './logo.svg';
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./App.css";
 import Todos from "./components/Todos";
-import Counter from "./components/Counter";
+import ThemeContext from "./contexts/ThemeContext";
 
 function App() {
   const [todos, setTodos] = useState([]);
 
-  const [globalCounter, setGlobalCounter] = useState(10);
+  const [darkMode, setDarkMode] = useState(false);
 
-  useEffect(() => {
-    console.log("FIRST RENDER & RE-RENDER");
-  });
+  console.log("darkMode", darkMode);
 
   function fetchTodos() {
     fetch("https://jsonplaceholder.typicode.com/todos")
@@ -26,10 +24,6 @@ function App() {
   useEffect(() => {
     console.log("USE-EFFECT: TODOS CHANGED!");
   }, [todos]);
-
-  useEffect(() => {
-    console.log("USE-EFFECT: GLOBAL COUNTER CHANGED!");
-  }, [globalCounter]);
 
   function toggleCompleted(id) {
     setTodos(
@@ -57,25 +51,29 @@ function App() {
     }
   }
 
-  function onIncrement(val) {
-    setGlobalCounter(globalCounter + val);
-  }
-
   return (
-    <div>
-      <button onClick={fetchTodos}>Fetch todos</button>
-      <input
-        value={newTodo}
-        onChange={(e) => {
-          setNewTodo(e.target.value);
+    <ThemeContext.Provider value={{ darkMode, setDarkMode }}>
+      <div
+        style={{
+          background: darkMode ? "black" : "white",
+          color: !darkMode ? "black" : "white",
         }}
-        placeholder="Insert your new todo"
-      />
-      <button onClick={() => addTodo(newTodo)}>Add Todo</button>
-      <Todos todos={todos} toggleCompleted={toggleCompleted} />
-      Global Counter: {globalCounter}
-      <Counter initialCount={10} onIncrement={onIncrement} />
-    </div>
+      >
+        <button onClick={fetchTodos}>Fetch todos</button>
+        <input
+          value={newTodo}
+          onChange={(e) => {
+            setNewTodo(e.target.value);
+          }}
+          placeholder="Insert your new todo"
+        />
+        <button onClick={() => addTodo(newTodo)}>Add Todo</button>
+        <br />
+        <br />
+        {darkMode ? "DARK" : "LIGHT"}
+        <Todos todos={todos} toggleCompleted={toggleCompleted} />
+      </div>
+    </ThemeContext.Provider>
   );
 }
 
