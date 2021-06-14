@@ -24,7 +24,7 @@ app.post("/api/admin", (req, res) => {
     username === process.env.ADMIN_USERNAME &&
     password === process.env.ADMIN_PASSWORD
   ) {
-    res.send({ creditnum: 423423423432 });
+    res.send({ creditnum: 2121212 });
   } else {
     res.send("Not authorized!");
   }
