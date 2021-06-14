@@ -32,11 +32,9 @@ app.post("/api/admin", (req, res) => {
 
 app.get("/api/todos", (req, res) => {
   const { title } = req.query;
-  //   fs.readFile("todos.json", "utf8", (err, todos) => {
   Todo.find({})
     .exec()
     .then((todosArr) => {
-      // const todosArr = JSON.parse(todos);
       if (title) {
         const todosFiltered = todosArr.filter((todo) =>
           todo.title.includes(title)
