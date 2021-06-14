@@ -9,7 +9,7 @@ function Home() {
   const [todos, setTodos] = useState([]);
 
   function fetchTodos() {
-    fetch("https://jsonplaceholder.typicode.com/todos")
+    fetch("/api/todos")
       .then((response) => response.json())
       .then((data) => setTodos(data));
   }
@@ -56,7 +56,7 @@ function Home() {
       }}
     >
       <Button variant="outlined" color="primary" onClick={fetchTodos}>
-        Fetch todos
+        Get todos
       </Button>
       <input
         value={newTodo}

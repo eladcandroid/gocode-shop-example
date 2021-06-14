@@ -16,10 +16,10 @@ function Todos({ todos, toggleCompleted }) {
       <button onClick={() => setDarkMode(true)}>DARK MODE</button>
 
       <ul>
-        {todos.map(({ id, title, completed }) => (
+        {todos.map(({ _id, title, completed }) => (
           <Todo
-            key={id}
-            id={id}
+            key={_id}
+            id={_id}
             title={title}
             completed={completed}
             toggleCompleted={toggleCompleted}
